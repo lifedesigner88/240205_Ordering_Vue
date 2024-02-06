@@ -2,7 +2,7 @@
 import axios from "axios";
 
 const API_BASE_URL = "http://localhost:8080";
-const TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJyb290QGFkbWluIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzA3MjAxNTU5LCJleHAiOjE3MDcyMDMzNTl9.yxzD05GnoxnYbDGyG1Mo1rf2tAgf2Poov59b_xaAHq8";
+const TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJyb290QGFkbWluIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzA3MjI2ODkyLCJleHAiOjE3MDcyNDQ4OTJ9.tj8ohEFXLl5NQ1Qd1A7nwrlVpYCl3NiHvELvLOjesDg";
 
 export default {
   data() {

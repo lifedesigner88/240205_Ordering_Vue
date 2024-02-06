@@ -1,5 +1,4 @@
 <script>
-
 import axios from "axios";
 import {jwtDecode} from "jwt-decode";
 
@@ -35,7 +34,6 @@ export default {
           localStorage.setItem("token", token)
           localStorage.setItem("name", name)
           localStorage.setItem("message", message)
-          localStorage.setItem("email", decode.email)
           localStorage.setItem("role", decode.role)
           this.$router.push("/");
         } else {
@@ -53,10 +51,8 @@ export default {
           alert("login Failed")
         }
       }
-
     }
   }
-
 }
 
 </script>
@@ -84,7 +80,5 @@ export default {
     </form>
   </div>
 </template>
-
 <style scoped>
-
 </style>
