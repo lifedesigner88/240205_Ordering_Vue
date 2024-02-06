@@ -2,6 +2,7 @@ import {createRouter, createWebHistory} from 'vue-router';
 import HomeCompo from "@/components/HomeCompo.vue";
 import MemberList from "@/views/MemberList.vue";
 import '@/assets/css/bootstrap.min.css';
+import LoginCompo from "@/views/LoginCompo.vue";
 
 const routes = [
     {
@@ -13,6 +14,11 @@ const routes = [
         path: '/members',
         name: 'MemberList',
         component: MemberList,
+    },
+    {
+        path: '/login',
+        name: 'Login',
+        component: LoginCompo,
     }
 ];
 
