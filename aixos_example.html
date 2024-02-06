@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello-json-screen</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<body>
+<form id="myFrom">
+    <label> JSON-SCREEN
+        <p>이름: </p><input id="name" type="text">
+        <p>이메일: </p><input id="email" type="text">
+        <p>비밀번호: </p><input id="password" type="text">
+    </label>
+    <p><button type="button" onclick="sendData()">제출</button></p>
+</form>
+<script>
+    async function sendData(){
+        const jsonData = {
+            name: document.getElementById("name").value,
+            email: document.getElementById("email").value,
+            password: document.getElementById("password").value
+        };
+        try {
+            const response = await axios({
+                method: 'POST',
+                url: "json-post-handle3",
+                data: JSON.stringify(jsonData),
+                headers: {'Content-type': 'application/json'}
+            });
+            window.location.href = "screen";
+            console.log(response);
+        } catch (e){console.log(e)}
+    }
+</script>
+</body>
+</html>
