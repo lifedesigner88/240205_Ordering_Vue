@@ -1,7 +1,8 @@
 import MemberCreate from "@/views/MemberCreate.vue";
 import MemberList from "@/views/MemberList.vue";
+import MemberOrders from "@/views/MemberOrders.vue";
 
-export default  [
+export default [
     {
         path: '/members',
         name: 'MemberList',
@@ -9,7 +10,13 @@ export default  [
     },
     {
         path: '/member/create',
-            name: 'MemberCreate',
+        name: 'MemberCreate',
         component: MemberCreate,
+    },
+    {
+        path: '/member/:id/orders',
+        name: 'MemberOrders',
+        component: MemberOrders,
+        probs: true,
     },
 ]

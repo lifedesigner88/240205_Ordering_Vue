@@ -1,7 +1,7 @@
 import OrderList from "@/views/OrderList.vue"
 
 
-export default  [
+export default [
     {
         path: '/orders',
         name: 'OrderList',

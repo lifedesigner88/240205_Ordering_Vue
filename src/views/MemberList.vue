@@ -12,7 +12,7 @@ export default {
   methods: {
     async fetchMembers() {
       const TOKEN = localStorage.getItem("token");
-      const headers = TOKEN ? { Authorization: `Bearer ${TOKEN}` } : {};
+      const headers = TOKEN ? {Authorization: `Bearer ${TOKEN}`} : {};
       const response = await axios.get(`${API_BASE_URL}/members`, {headers});
       this.memberList = response.data;
     },
@@ -41,7 +41,7 @@ export default {
         <td>{{ member.name }}</td>
         <td>{{ member.email }}</td>
         <td>{{ member.orderCount }}</td>
-        <td><a :href="'/author/detail/' + member.id">상세보기</a></td>
+        <td><a :href="`/member/${member.id}/orders`">상세보기</a></td>
       </tr>
       </tbody>
     </table>

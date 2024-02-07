@@ -27,5 +27,4 @@ const router = createRouter({
     routes: routes,
 });
 
-
 export default router;
