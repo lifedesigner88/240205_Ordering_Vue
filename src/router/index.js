@@ -16,9 +16,10 @@ const routes = [
         name: 'Login',
         component: LoginCompo,
     },
+
     // 스프레드 연산자로 불리고, 주로 배열 요소를 다른 배열 요소에 합할때 사용.
     ...memberRouter,
-    ...OrderList
+    ...OrderList,
 
 ];
 

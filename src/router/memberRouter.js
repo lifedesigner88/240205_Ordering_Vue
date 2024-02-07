@@ -1,6 +1,7 @@
 import MemberCreate from "@/views/MemberCreate.vue";
 import MemberList from "@/views/MemberList.vue";
 import MemberOrders from "@/views/MemberOrders.vue";
+import MyPage from "@/views/MyPage.vue";
 
 export default [
     {
@@ -17,6 +18,13 @@ export default [
         path: '/member/:id/orders',
         name: 'MemberOrders',
         component: MemberOrders,
-        probs: true,
+        props: true,
     },
+    {
+        path: '/mypage',
+        name: 'MyPage',
+        component: MyPage,
+    },
+
+
 ]
