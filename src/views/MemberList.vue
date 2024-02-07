@@ -2,7 +2,6 @@
 import axios from "axios";
 
 const API_BASE_URL = "http://localhost:8080";
-const TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJyb290QGFkbWluIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzA3MjI2ODkyLCJleHAiOjE3MDcyNDQ4OTJ9.tj8ohEFXLl5NQ1Qd1A7nwrlVpYCl3NiHvELvLOjesDg";
 
 export default {
   data() {
@@ -12,8 +11,9 @@ export default {
   },
   methods: {
     async fetchMembers() {
-      const header = {Authorization: `Bearer ${TOKEN}`};
-      const response = await axios.get(`${API_BASE_URL}/members`, {headers: header});
+      const TOKEN = localStorage.getItem("token");
+      const headers = TOKEN ? { Authorization: `Bearer ${TOKEN}` } : {};
+      const response = await axios.get(`${API_BASE_URL}/members`, {headers});
       this.memberList = response.data;
     },
   },

@@ -30,12 +30,12 @@ export default {
         const token = response.data.result.token;
 
         if (token) {
-          const decode = jwtDecode(token)
-          localStorage.setItem("token", token)
-          localStorage.setItem("name", name)
-          localStorage.setItem("message", message)
-          localStorage.setItem("role", decode.role)
-          this.$router.push("/");
+          const decode = jwtDecode(token);
+          localStorage.setItem("token", token);
+          localStorage.setItem("name", name);
+          localStorage.setItem("message", message);
+          localStorage.setItem("role", decode.role);
+          window.location.href = "/login";
         } else {
           console.log("200 ok but not token");
           alert("login Failed");
