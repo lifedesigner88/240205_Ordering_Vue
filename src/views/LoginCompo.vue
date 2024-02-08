@@ -2,7 +2,6 @@
 import axios from "axios";
 import {jwtDecode} from "jwt-decode";
 
-const API_BASE_URL = "http://localhost:8080";
 
 export default {
   data() {
@@ -23,7 +22,7 @@ export default {
           password: this.password
         }
         const response = await axios
-            .post(`${API_BASE_URL}/doLogin`, loginData);
+            .post(`${process.env.VUE_APP_API_BASE_URL}/doLogin`, loginData);
 
         const message = response.data.message;
         const name = response.data.result.name;

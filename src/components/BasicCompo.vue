@@ -1,3 +1,27 @@
+<script>
+
+export default {
+  data() {
+    return {
+      myLang: "python",
+      inputvalue1: "python2",
+      inputvalue2: "python3",
+    }
+  },
+
+  created() {
+    this.myLang = "java";
+  },
+
+  methods: {
+    showValue(){
+      alert(this.inputvalue2);
+    }
+  }
+}
+</script>
+
+
 <template>
   <h1>Hello World {{myLang}}</h1>
   <input type="text" value="myvalue"/>
@@ -16,27 +40,3 @@
   <button @click="showValue"> 변수 변경사항 확인 </button>
 
 </template>
-
-<script>
-
-export default {
-  data() {
-    return {
-      myLang: "python",
-      inputvalue1: "python2",
-      inputvalue2: "python3",
-    }
-  },
-
-  created() {
-    this.myLang = "java";
-  },
-
-
-  methods: {
-   showValue(){
-     alert(this.inputvalue2);
-   }
-  }
-}
-</script>

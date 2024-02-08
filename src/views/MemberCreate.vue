@@ -1,7 +1,6 @@
 <script>
 import axios from "axios";
 
-const API_BASE_URL = "http://localhost:8080";
 
 export default {
   data() {
@@ -28,7 +27,7 @@ export default {
           zipcode: this.zipcode,
         }
 
-        await axios.post(`${API_BASE_URL}/member/create`, registerData);
+        await axios.post(`${process.env.VUE_APP_API_BASE_URL}/member/create`, registerData);
         this.$router.push({name: 'Login'});
         // window.location.href = "/login";
 

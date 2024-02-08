@@ -12,10 +12,45 @@ export default {
 <template>
 <OrderListCompo
     :isAdmin="true"
-    api-url="http://localhost:8080/orders"
+    api-url="/orders"
 />
 </template>
 
 <style>
 
 </style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

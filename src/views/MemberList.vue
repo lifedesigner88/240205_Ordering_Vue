@@ -1,8 +1,6 @@
 <script>
 import axios from "axios";
 
-const API_BASE_URL = "http://localhost:8080";
-
 export default {
   data() {
     return {
@@ -13,7 +11,7 @@ export default {
     async fetchMembers() {
       const TOKEN = localStorage.getItem("token");
       const headers = TOKEN ? {Authorization: `Bearer ${TOKEN}`} : {};
-      const response = await axios.get(`${API_BASE_URL}/members`, {headers});
+      const response = await axios.get(`${process.env.VUE_APP_API_BASE_URL}/members`, { headers });
       this.memberList = response.data;
     },
   },
@@ -21,6 +19,7 @@ export default {
     this.fetchMembers();
   },
 }
+
 </script>
 <template>
   <div class="container">

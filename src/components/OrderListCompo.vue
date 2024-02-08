@@ -1,7 +1,6 @@
 <script>
 import axios from "axios";
 
-const API_BASE_URL = "http://localhost:8080";
 const TOKEN = localStorage.getItem("token");
 const headers = TOKEN ? {Authorization: `Bearer ${TOKEN}`} : {};
 
@@ -17,7 +16,7 @@ export default {
   methods: {
 
     async fetchMembers() {
-      const response = await axios.get(this.apiUrl, {headers});
+      const response = await axios.get(`${process.env.VUE_APP_API_BASE_URL}${this.apiUrl}`, {headers});
       this.orderList = response.data;
     },
 
@@ -33,7 +32,7 @@ export default {
     async orderCancle(orderId) {
       console.log(orderId);
       confirm("정말 취소하시겠습니까?")
-      await axios.delete(`${API_BASE_URL}/order/${orderId}/cancel`,{headers})
+      await axios.delete(`${process.env.VUE_APP_API_BASE_URL}/order/${orderId}/cancel`,{headers})
       const order = this.orderList.find(order => order.orderId === orderId)
       order.orderStatus = "CANCELED"
     }

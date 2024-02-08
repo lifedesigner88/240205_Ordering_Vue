@@ -1,38 +1,68 @@
 <script>
+import axios from "axios";
 import OrderListCompo from "@/components/OrderListCompo.vue";
+
+const TOKEN = localStorage.getItem("token");
+const headers = TOKEN ? {Authorization: `Bearer ${TOKEN}`} : {};
+
 export default {
-  components:{
-    OrderListCompo
+  components: {OrderListCompo},
+  data() {
+    return {
+      mydata: {},
+    }
+  },
+
+  methods: {
+    async fetchMyInfo() {
+      const res = await axios.get(`${process.env.VUE_APP_API_BASE_URL}/member/myInfo`, {headers});
+      this.mydata = res.data;
+    }
+  },
+
+  created() {
+    this.fetchMyInfo();
   }
 }
 </script>
 
+
 <template>
   <div class="container">
-    <div class="page-header" style="padding: 15px"><h1>회원 정보</h1></div>
+    <div class="page-header" style="padding: 15px">
+      <h1>회원 정보</h1>
+    </div>
     <table class="table">
-      <thead>
       <tr>
         <th>이름</th>
-        <th>email</th>
-        <th>도시</th>
-        <th>상세주소</th>
-        <th>우편번호</th>
+        <td>{{mydata.name}}</td>
       </tr>
-      </thead>
-      <tbody>
-<!--      <tr v-for="member in memberList" :key="member.id">-->
-<!--        <td>{{ member.id }}</td>-->
-<!--        <td>{{ member.name }}</td>-->
-<!--        <td>{{ member.email }}</td>-->
-<!--        <td>{{ member.orderCount }}</td>-->
-<!--        <td><a :href="`/member/${member.id}/orders`">상세보기</a></td>-->
-<!--      </tr>-->
-      </tbody>
+      <tr>
+        <th>email</th>
+        <td>{{mydata.email}}</td>
+      </tr>
+      <tr>
+        <th>도시</th>
+        <td>{{mydata.city}}</td>
+      </tr>
+      <tr>
+        <th>상세주소</th>
+        <td>{{mydata.street}}</td>
+      </tr>
+      <tr>
+        <th>우편번호</th>
+        <td>{{mydata.zipcode}}</td>
+      </tr>
+      <tr>
+        <th>주문수량</th>
+        <td>{{mydata.orderCount}}</td>
+      </tr>
     </table>
   </div>
+
   <OrderListCompo
       :is-admin="false"
-      api-url="http://localhost:8080/member/myorders"
+      api-url="/member/myorders"
   />
+
 </template>

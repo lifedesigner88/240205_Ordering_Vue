@@ -4,6 +4,7 @@ import '@/assets/css/bootstrap.min.css';
 import LoginCompo from "@/views/LoginCompo.vue";
 import memberRouter from "@/router/memberRouter.js";
 import OrderList from "@/router/orderRouter.js";
+import ItemList from "@/router/itemRouter.js"
 
 const routes = [
     {
@@ -20,6 +21,7 @@ const routes = [
     // 스프레드 연산자로 불리고, 주로 배열 요소를 다른 배열 요소에 합할때 사용.
     ...memberRouter,
     ...OrderList,
+    ...ItemList,
 
 ];
 

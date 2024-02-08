@@ -11,6 +11,6 @@ export default {
 <template>
   <OrderListCompo
       :is-admin="true"
-      :api-url="`http://localhost:8080/member/${id}/orders`"
+      :api-url="`/member/${id}/orders`"
   />
 </template>
