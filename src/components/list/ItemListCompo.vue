@@ -28,20 +28,22 @@ export default {
 
     addCart() {
 
-
-
-
-      this.$store.commit('addToCart',this.getSelectedItems());
-    },
-
-    getSelectedItems() {
-      return  Object.keys(this.selectedItems)
+      const cartedItems = Object.keys(this.selectedItems)
           .filter(key => this.selectedItems[key] === true)
           .map(key => {
             const item = this.itemList.find(item => item.id === parseInt(key))
-            return {itemId: item.id, quantity: item.quantity}
-          })
+            return {
+              itemId: item.id,
+              itemName: item.name,
+              quantity: item.quantity
+            }
+          });
+      cartedItems.forEach(item => this.$store.commit('addToCart', item));
     },
+
+
+
+
 
 
     async deleteItem(deleteItemId) {
@@ -57,18 +59,6 @@ export default {
     },
 
     async placeOrder() {
-
-      // {
-      //   "1" : true,
-      //   "2" : false,
-      // }
-      // object.keys : 위의 데이터 구주에서 1,2 등 key 값 추출하는 메서드.
-      console.log('아이템')
-      console.log(this.selectedItems);
-      console.log('아이템들')
-      console.log(this.itemList);
-
-      // const orderReqItemDtoList = orderItems;
       try {
         await axios.post(
             `${process.env.VUE_APP_API_BASE_URL}/order/create`,
@@ -82,7 +72,14 @@ export default {
         alert("주문이 실패되었습니다.");
       }
     },
-
+    getSelectedItems() {
+      return  Object.keys(this.selectedItems)
+          .filter(key => this.selectedItems[key] === true)
+          .map(key => {
+            const item = this.itemList.find(item => item.id === parseInt(key))
+            return {itemId: item.id, quantity: item.quantity}
+          })
+    },
 
     async loadItems() {
       try {

@@ -6,6 +6,7 @@ export default {
       myLang: "python",
       inputvalue1: "python2",
       inputvalue2: "python3",
+      count: 0,
     }
   },
 
@@ -13,7 +14,20 @@ export default {
     this.myLang = "java";
   },
 
+
+  // computed는 종속된 반응형 데이터가 변경될 때만 함수를 다시 실행하여 값을 계산하는 계산함수다.
+  computed: {
+    doubleCount(){
+      return this.count *2;
+    }
+  },
+
   methods: {
+
+    increment() {
+      this.count++;
+    },
+
     showValue(){
       alert(this.inputvalue2);
     }
@@ -38,5 +52,14 @@ export default {
 
 <!--  oneclick = @click 와 간다. -->
   <button @click="showValue"> 변수 변경사항 확인 </button>
+
+  <div>
+    <h2>{{count}}</h2>
+    <button @click="increment">increment</button>
+  </div>
+  <div>
+    <h2>{{doubleCount}}</h2>
+    <button @click="doubleCount">doublex2</button>
+  </div>
 
 </template>

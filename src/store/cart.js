@@ -23,11 +23,22 @@ export default createStore (
         // vuex에서 커밋이라는 용어는 상태변경을 위해 mutation을 호출하는 과정을 의미
         mutations: {
             // addToCart함수는 외부 컴포넌트 (또는 actin)에서 호출될 예정
+
             addToCart(state, item) {
-                state.cartItems.push(item);
+
+                const existItem = state.cartItems.find(i => i.id === item.id)
+
+                if(existItem){
+                    existItem.count += item.count;
+                } else {
+                    state.cartItems.push(item);
+                }
+
+                //  totalCount
+                state.totalQuantity = parseInt(state.totalQuantity) + item.count;
                 updateLocalStorage(
                     state.cartItems,
-                    10);
+                    state.totalQuantity);
             },
         },
         // getter 상태를 반환하는 함수들의 집합
