@@ -1,6 +1,6 @@
 <script>
 import axios from "axios";
-import OrderListCompo from "@/components/OrderListCompo.vue";
+import OrderListCompo from "@/components/list/OrderListCompo.vue";
 
 const TOKEN = localStorage.getItem("token");
 const headers = TOKEN ? {Authorization: `Bearer ${TOKEN}`} : {};

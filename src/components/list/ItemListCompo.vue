@@ -1,7 +1,15 @@
 <script>
 import axios from "axios";
 
+const TOKEN = localStorage.getItem("token");
+const headers = TOKEN ? {Authorization: `Bearer ${TOKEN}`} : {};
+
 export default {
+  props: {
+    isAdmin: Boolean,
+    pageTitle : String,
+  },
+
   data() {
     return {
       itemList: [],
@@ -13,28 +21,64 @@ export default {
       isLoading: false,
       quantity: 0,
       selectedItems: {},
+
     }
   },
-
   methods: {
 
-    placeOrder() {
+    addCart() {
 
-      // {
-      //   "1" : true,
-      //   "2" : false,
-      // }
-      // object.keys : 위의 데이터 구주에서 1,2 등 key 값 추출하는 메서드.
-
-      const orderItems = Object.key(this.selectedItems)
+      const cartedItems = Object.keys(this.selectedItems)
           .filter(key => this.selectedItems[key] === true)
           .map(key => {
-            const item = this.itemList.find(item => item.id === key);
-            return { itemId:item.id, count:item.quantity }
+            const item = this.itemList.find(item => item.id === parseInt(key))
+            return {
+              itemId: item.id,
+              itemName: item.name,
+              quantity: item.quantity
+            }
+          });
+      cartedItems.forEach(item => this.$store.commit('addToCart', item));
+    },
+
+
+
+
+
+
+    async deleteItem(deleteItemId) {
+      if (confirm("정말로 삭제하시겠습니까?")) {
+        try {
+          await axios.delete(`${process.env.VUE_APP_API_BASE_URL}/item/${deleteItemId}/delete`, {headers})
+          window.location.reload()
+        } catch (e) {
+          console.log(e)
+        }
+      }
+
+    },
+
+    async placeOrder() {
+      try {
+        await axios.post(
+            `${process.env.VUE_APP_API_BASE_URL}/order/create`,
+            this.getSelectedItems(),
+            {headers}
+        );
+        alert("주문이 완료되었습니다");
+        window.location.reload();
+      } catch (e) {
+        console.log(e);
+        alert("주문이 실패되었습니다.");
+      }
+    },
+    getSelectedItems() {
+      return  Object.keys(this.selectedItems)
+          .filter(key => this.selectedItems[key] === true)
+          .map(key => {
+            const item = this.itemList.find(item => item.id === parseInt(key))
+            return {itemId: item.id, quantity: item.quantity}
           })
-
-      console.log(orderItems);
-
     },
 
     async loadItems() {
@@ -47,8 +91,8 @@ export default {
         }
         console.log(this.isLastPage);
         const res = await axios.get(`${process.env.VUE_APP_API_BASE_URL}/items`, {params});
-        // const addItemList = res.data.map(item => [...item, this.quantity = 1]);
-        const addItemList = res.data;
+        const addItemList = res.data.map(item => ({...item, quantity: 1}));
+
         if (addItemList.length < this.pageSize) {
           this.isLastPage = true;
         }
@@ -99,11 +143,15 @@ export default {
 <template>
   <div class="container">
     <div class="float-right">
-      <button class="btn" style="margin: 10px" type="submit"> 장바구니</button>
-      <button @click="placeOrder" class="btn" style="margin: 10px" type="submit"> 주문하기</button>
+      <button v-if="!isAdmin" class="btn" style="margin: 10px" type="submit" @click="addCart" > 장바구니</button>
+      <button v-if="!isAdmin" class="btn" style="margin: 10px" type="submit" @click="placeOrder"> 주문하기</button>
+      <button v-if="isAdmin" class="btn" style="margin: 10px" type="submit"
+              @click="$router.push('/item/create')">상품등록
+      </button>
     </div>
+
     <div class="page-header" style="padding: 15px">
-      <h1>상품 목록</h1>
+      <h1>{{ pageTitle }}</h1>
 
       <div class="d-flex justify-content-between float-left" style="margin-top:20px">
         <form style="display: flex; padding : 10px" @submit.prevent="serarchItems">
@@ -126,25 +174,34 @@ export default {
         <thead>
         <tr>
           <th>id</th>
-          <th></th>
+          <th v-if="!isAdmin"></th>
           <th>제품사진</th>
           <th>제품명</th>
           <th>카테고리</th>
           <th>가격</th>
           <th>재고수량</th>
-          <th>주문수량</th>
+          <th v-if="!isAdmin">주문수량</th>
+          <th v-if="isAdmin">Action</th>
         </tr>
         </thead>
         <tbody>
         <tr v-for="item in itemList" :key="item.id">
           <td>{{ item.id }}</td>
-          <td><input class="form-check" type="checkbox" v-model="selectedItems[item.id]"></td>
+          <td v-if="!isAdmin"><input v-model="selectedItems[item.id]" class="form-check" type="checkbox"></td>
           <td><img :src="getImage(item.id)" alt="상품이미지" style="height:100px; width:100px"></td>
           <td>{{ item.name }}</td>
           <td>{{ item.category }}</td>
           <td>{{ item.price }}</td>
           <td>{{ item.stockQuantity }}</td>
-          <td><input class="form-control" v-model="item.quantity" min="1" style="width:70px; text-align: center" type="number"/></td>
+          <td v-if="!isAdmin">
+            <input v-model="item.quantity"
+                   class="form-control" min="1"
+                   style="width:70px; text-align: center"
+                   type="number"/></td>
+
+          <td v-if="isAdmin">
+            <button class="btn btn-secondary" @click="deleteItem(item.id)">삭제</button>
+          </td>
 
         </tr>
         </tbody>
