@@ -49,13 +49,14 @@ export default {
     async deleteItem(deleteItemId) {
       if (confirm("정말로 삭제하시겠습니까?")) {
         try {
-          await axios.delete(`${process.env.VUE_APP_API_BASE_URL}/item/${deleteItemId}/delete`, {headers})
+          await axios.delete(
+              `${process.env.VUE_APP_API_BASE_URL}/item/${deleteItemId}/delete`,
+              {headers})
           window.location.reload()
         } catch (e) {
           console.log(e)
         }
       }
-
     },
 
     async placeOrder() {

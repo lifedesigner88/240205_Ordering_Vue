@@ -14,10 +14,11 @@ export default {
       itemImage: null,
     }
   },
+
+
   methods: {
     async fileUpload(event) {
       // 이벤트가 발생한 DOM요소를 가리키는 객체
-
       this.itemImage = event.target.files[0]
       const registerData = new FormData()
 
@@ -40,6 +41,9 @@ export default {
       }
     }
   }
+
+
+
 }
 </script>
 
