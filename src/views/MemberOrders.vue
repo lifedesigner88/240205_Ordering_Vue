@@ -1,5 +1,5 @@
 <script>
-import OrderListCompo from "@/components/OrderListCompo.vue";
+import OrderListCompo from "@/components/list/OrderListCompo.vue";
 export default {
   props: ['id'],
   components:{

@@ -4,7 +4,8 @@ import LoginCompo from "@/views/LoginCompo.vue";
 import memberRouter from "@/router/memberRouter.js";
 import itemRouter from "@/router/itemRouter";
 import orderRouter from "@/router/orderRouter";
-import ItemList from "@/views/ItemList.vue";
+import ItemList from "@/views/list/ItemList.vue";
+import BasicCompo from "@/components/BasicCompo.vue";
 
 
 const routes = [
@@ -18,6 +19,12 @@ const routes = [
         name: 'Login',
         component: LoginCompo,
     },
+    {
+        path: '/basic',
+        name: 'BasicCompo',
+        component: BasicCompo,
+    },
+
 
     // 스프레드 연산자로 불리고, 주로 배열 요소를 다른 배열 요소에 합할때 사용.
     ...memberRouter,

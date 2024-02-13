@@ -1,4 +1,4 @@
-import OrderList from "@/views/OrderList.vue"
+import OrderList from "@/views/list/OrderList.vue"
 
 
 export default [

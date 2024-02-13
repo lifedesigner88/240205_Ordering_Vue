@@ -1,5 +1,5 @@
-import MemberCreate from "@/views/MemberCreate.vue";
-import MemberList from "@/views/MemberList.vue";
+import MemberCreate from "@/views/create/MemberCreate.vue";
+import MemberList from "@/views/list/MemberList.vue";
 import MemberOrders from "@/views/MemberOrders.vue";
 import MyPage from "@/views/MyPage.vue";
 

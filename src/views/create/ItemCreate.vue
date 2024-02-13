@@ -15,7 +15,6 @@ export default {
     }
   },
   methods: {
-
     async fileUpload(event) {
       // 이벤트가 발생한 DOM요소를 가리키는 객체
 

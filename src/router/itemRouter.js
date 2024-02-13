@@ -1,6 +1,6 @@
-import ItemList from "@/views/ItemList.vue";
-import ItemListManage from "@/views/ItemListManage.vue";
-import ItemCreate from "@/views/ItemCreate.vue";
+import ItemList from "@/views/list/ItemList.vue";
+import ItemListManage from "@/views/list/ItemListManage.vue";
+import ItemCreate from "@/views/create/ItemCreate.vue";
 
 export default [
     {

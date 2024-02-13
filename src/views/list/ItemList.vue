@@ -1,5 +1,5 @@
 <script>
-import ItemListCompo from "@/components/ItemListCompo.vue";
+import ItemListCompo from "@/components/list/ItemListCompo.vue";
 
 
 export default {

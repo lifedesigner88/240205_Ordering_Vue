@@ -5,7 +5,10 @@ const TOKEN = localStorage.getItem("token");
 const headers = TOKEN ? {Authorization: `Bearer ${TOKEN}`} : {};
 
 export default {
-  props: ['isAdmin', 'pageTitle'],
+  props: {
+    isAdmin: Boolean,
+    pageTitle : String,
+  },
 
   data() {
     return {
@@ -23,8 +26,25 @@ export default {
   },
   methods: {
 
-    async deleteItem(deleteItemId) {
+    addCart() {
 
+
+
+
+      this.$store.commit('addToCart',this.getSelectedItems());
+    },
+
+    getSelectedItems() {
+      return  Object.keys(this.selectedItems)
+          .filter(key => this.selectedItems[key] === true)
+          .map(key => {
+            const item = this.itemList.find(item => item.id === parseInt(key))
+            return {itemId: item.id, quantity: item.quantity}
+          })
+    },
+
+
+    async deleteItem(deleteItemId) {
       if (confirm("정말로 삭제하시겠습니까?")) {
         try {
           await axios.delete(`${process.env.VUE_APP_API_BASE_URL}/item/${deleteItemId}/delete`, {headers})
@@ -48,30 +68,19 @@ export default {
       console.log('아이템들')
       console.log(this.itemList);
 
-      const orderItems = Object.keys(this.selectedItems)
-          .filter(key => this.selectedItems[key] === true)
-          .map(key => {
-            const item = this.itemList.find(item => item.id === parseInt(key))
-            return {itemId: item.id, quantity: item.quantity}
-          })
-
-
       // const orderReqItemDtoList = orderItems;
       try {
         await axios.post(
             `${process.env.VUE_APP_API_BASE_URL}/order/create`,
-            orderItems,
+            this.getSelectedItems(),
             {headers}
         );
-        console.log(orderItems);
         alert("주문이 완료되었습니다");
         window.location.reload();
       } catch (e) {
         console.log(e);
         alert("주문이 실패되었습니다.");
       }
-
-
     },
 
 
@@ -137,7 +146,7 @@ export default {
 <template>
   <div class="container">
     <div class="float-right">
-      <button v-if="!isAdmin" class="btn" style="margin: 10px" type="submit"> 장바구니</button>
+      <button v-if="!isAdmin" class="btn" style="margin: 10px" type="submit" @click="addCart" > 장바구니</button>
       <button v-if="!isAdmin" class="btn" style="margin: 10px" type="submit" @click="placeOrder"> 주문하기</button>
       <button v-if="isAdmin" class="btn" style="margin: 10px" type="submit"
               @click="$router.push('/item/create')">상품등록
