@@ -42,10 +42,10 @@ export default {
 
       const TOKEN = localStorage.getItem("token");
       const headers = TOKEN ? {Authorization: `Bearer ${TOKEN}`} : {};
-      const orderReqItemDtoList = orderItems;
+      // const orderReqItemDtoList = orderItems;
       await axios.post(
           `${process.env.VUE_APP_API_BASE_URL}/order/create`,
-          {orderReqItemDtoList},
+          orderItems,
           {headers}
       );
 
