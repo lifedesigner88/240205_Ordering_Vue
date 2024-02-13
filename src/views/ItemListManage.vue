@@ -1,17 +1,19 @@
 <script>
 import ItemListCompo from "@/components/ItemListCompo.vue";
 
-
 export default {
-  name: "ItemList",
+  name: "ItemListManage",
   components: {ItemListCompo},
 }
+
 </script>
 
 <template>
   <ItemListCompo
-      :isAdmin="false"
-      pageTitle="상품목록"
+      :isAdmin="true"
+      page-title="상품관리"
+
   />
+
 </template>
 

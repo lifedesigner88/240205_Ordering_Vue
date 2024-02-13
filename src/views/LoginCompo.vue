@@ -24,7 +24,6 @@ export default {
         const response = await axios
             .post(`${process.env.VUE_APP_API_BASE_URL}/doLogin`, loginData);
 
-        const message = response.data.message;
         const name = response.data.result.name;
         const token = response.data.result.token;
 
@@ -32,9 +31,8 @@ export default {
           const decode = jwtDecode(token);
           localStorage.setItem("token", token);
           localStorage.setItem("name", name);
-          localStorage.setItem("message", message);
           localStorage.setItem("role", decode.role);
-          window.location.href = "/login";
+          window.location.href = "/";
         } else {
           console.log("200 ok but not token");
           alert("login Failed");

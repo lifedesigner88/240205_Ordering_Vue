@@ -6,7 +6,7 @@
           <a class="nav-link" href="/members">회원관리</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/items">상품관리</a>
+          <a class="nav-link" href="/items/manage">상품관리</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/orders">주문관리</a>

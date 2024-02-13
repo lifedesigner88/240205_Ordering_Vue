@@ -11,7 +11,6 @@ export default {
       city: "",
       street: "",
       zipcode: "",
-
     }
   },
   methods: {
@@ -75,15 +74,6 @@ export default {
       <label for="zipcode" class="form-control" style="padding: 15px">우편번호 :
         <input id="zipcode" v-model="zipcode" type="text" class="form-control">
       </label>
-
-      <label for="role" class="form-control" style="padding: 15px">권한 :
-        <select id="role" name="role" class="form-control">
-          <option>==선택==</option>
-          <option value="admin">관리자</option>
-          <option value="user">일반유저</option>
-        </select>
-      </label>
-
       <p style="margin: 15px; padding: 15px"><button class="btn btn-primary" type="submit">Submit</button></p>
 
     </form>
