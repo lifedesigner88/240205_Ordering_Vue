@@ -29,7 +29,6 @@ export default {
     ...mapActions(['addToCart']),
 
     addCart() {
-      console.log(this.selectedItems)
       const cartedItems = Object.keys(this.selectedItems)
           .filter(key => this.selectedItems[key] === true)
           .map(key => {
