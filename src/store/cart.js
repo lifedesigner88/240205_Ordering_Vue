@@ -1,11 +1,5 @@
 import {createStore} from "vuex";
 
-
-
-
-
-
-
 // initState, updateLocalStorage와 같은 함수는 스토어 정의 바깥에 위치
 // 책임과 권한을 분리하는 개념적인 의도도 있지만, 다른 상황에서 재사용성을 높이기 위한 아키텍처
 function initState() {
@@ -27,11 +21,11 @@ export default createStore (
         mutations: {
             // addToCart함수는 외부 컴포넌트 (또는 actin)에서 호출될 예정
             addToCart(state, item) {
-                const existItem = state.cartItems.find(i => i.id === item.id)
-                if(existItem) existItem.count += item.count;
+                const existItem = state.cartItems.find(i => parseInt(i.itemId) === item.itemId)
+                if(existItem) existItem.quantity += item.quantity;
                 else state.cartItems.push(item);
                 //  totalCount
-                state.totalQuantity = parseInt(state.totalQuantity) + item.count;
+                state.totalQuantity = parseInt(state.totalQuantity) + item.quantity;
                 updateLocalStorage(
                     state.cartItems,
                     state.totalQuantity);
@@ -39,7 +33,7 @@ export default createStore (
         },
         // getter 상태를 반환하는 함수들의 집합
         getters: {
-            cartItems: state => state.cartItems,
+            getCartItems: state => state.cartItems,
             getTotalQuantity: state => state.totalQuantity
         }
     }

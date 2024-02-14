@@ -20,14 +20,14 @@ export default {
       isLastPage: false,
       isLoading: false,
       quantity: 0,
-      selectedItems: {},
+      selectedItems: Object,
 
     }
   },
   methods: {
 
     addCart() {
-
+      console.log(this.selectedItems)
       const cartedItems = Object.keys(this.selectedItems)
           .filter(key => this.selectedItems[key] === true)
           .map(key => {
@@ -39,6 +39,8 @@ export default {
             }
           });
       cartedItems.forEach(item => this.$store.commit('addToCart', item));
+      this.selectedItems = [];
+      window.location.reload();
     },
 
 
