@@ -1,5 +1,6 @@
 <script>
 import axios from "axios";
+import {mapActions} from "vuex";
 
 const TOKEN = localStorage.getItem("token");
 const headers = TOKEN ? {Authorization: `Bearer ${TOKEN}`} : {};
@@ -25,6 +26,7 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['addToCart']),
 
     addCart() {
       console.log(this.selectedItems)
@@ -38,8 +40,10 @@ export default {
               quantity: item.quantity
             }
           });
-
-      cartedItems.forEach(item => this.$store.commit('addToCart', item));
+      // 뮤테이션 직접 호출 방식
+      // cartedItems.forEach(item => this.$store.commit('addToCart', item));
+      // 액션 호출 방식
+      cartedItems.forEach(item => this.$store.dispatch('addToCart', item));
       this.selectedItems = [];
       window.location.reload();
     },
@@ -61,7 +65,7 @@ export default {
     async placeOrder() {
 
       const seleted = this.getSelectedItems()
-      if(seleted.length === 0){
+      if (seleted.length === 0) {
         alert("선택사항이 없습니다")
         return
       }

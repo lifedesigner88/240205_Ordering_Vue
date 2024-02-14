@@ -26,7 +26,7 @@ export default {
 
       if (this.getTotalQuantity < 1) {
         alert("물건이 없습니다.")
-        return
+        return;
       }
 
       if (!confirm(`${this.getTotalQuantity}개의 상품을 주문하시겠습니까?`)) {
@@ -50,7 +50,8 @@ export default {
     },
 
     cartClear() {
-      this.$store.commit('clearCart');
+      // this.$store.commit('clearCart');
+      this.$store.dispatch('clearCart');
     }
   }
 }
