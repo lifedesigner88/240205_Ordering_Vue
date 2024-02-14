@@ -38,6 +38,7 @@ export default {
               quantity: item.quantity
             }
           });
+
       cartedItems.forEach(item => this.$store.commit('addToCart', item));
       this.selectedItems = [];
       window.location.reload();
@@ -58,10 +59,22 @@ export default {
     },
 
     async placeOrder() {
+
+      const seleted = this.getSelectedItems()
+      if(seleted.length === 0){
+        alert("선택사항이 없습니다")
+        return
+      }
+
+      if (!confirm(`${seleted.length}개의 상품을 주문하시겠습니까?`)) {
+        alert("주문이 취소되었습니다.")
+        return;
+      }
+
       try {
         await axios.post(
             `${process.env.VUE_APP_API_BASE_URL}/order/create`,
-            this.getSelectedItems(),
+            seleted,
             {headers}
         );
         alert("주문이 완료되었습니다");
