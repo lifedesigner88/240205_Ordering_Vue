@@ -8,11 +8,13 @@ function initState() {
         totalQuantity: localStorage.getItem('totalQuantity') || 0
     }
 }
+
 function updateLocalStorage(cartItems, totalQuantity) {
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
     localStorage.setItem('totalQuantity', totalQuantity);
 }
-export default createStore (
+
+export default createStore(
     {
         // state : 상태를 의미하는 객체로서 initState를 통해 상태 초기화
         state: initState,
@@ -22,7 +24,7 @@ export default createStore (
             // addToCart함수는 외부 컴포넌트 (또는 actin)에서 호출될 예정
             addToCart(state, item) {
                 const existItem = state.cartItems.find(i => parseInt(i.itemId) === item.itemId)
-                if(existItem) existItem.quantity += item.quantity;
+                if (existItem) existItem.quantity += item.quantity;
                 else state.cartItems.push(item);
                 //  totalCount
                 state.totalQuantity = parseInt(state.totalQuantity) + item.quantity;
@@ -30,6 +32,15 @@ export default createStore (
                     state.cartItems,
                     state.totalQuantity);
             },
+
+            clearCart(state){
+                state.cartItems = [];
+                state.totalQuantity = 0;
+                updateLocalStorage(
+                    state.cartItems,
+                    state.totalQuantity
+                );
+            }
         },
         // getter 상태를 반환하는 함수들의 집합
         getters: {

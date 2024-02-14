@@ -7,7 +7,7 @@ const headers = TOKEN ? {Authorization: `Bearer ${TOKEN}`} : {};
 export default {
   props: {
     isAdmin: Boolean,
-    pageTitle : String,
+    pageTitle: String,
   },
 
   data() {
@@ -44,10 +44,6 @@ export default {
     },
 
 
-
-
-
-
     async deleteItem(deleteItemId) {
       if (confirm("정말로 삭제하시겠습니까?")) {
         try {
@@ -76,7 +72,7 @@ export default {
       }
     },
     getSelectedItems() {
-      return  Object.keys(this.selectedItems)
+      return Object.keys(this.selectedItems)
           .filter(key => this.selectedItems[key] === true)
           .map(key => {
             const item = this.itemList.find(item => item.id === parseInt(key))
@@ -146,7 +142,7 @@ export default {
 <template>
   <div class="container">
     <div class="float-right">
-      <button v-if="!isAdmin" class="btn" style="margin: 10px" type="submit" @click="addCart" > 장바구니</button>
+      <button v-if="!isAdmin" class="btn" style="margin: 10px" type="submit" @click="addCart"> 장바구니</button>
       <button v-if="!isAdmin" class="btn" style="margin: 10px" type="submit" @click="placeOrder"> 주문하기</button>
       <button v-if="isAdmin" class="btn" style="margin: 10px" type="submit"
               @click="$router.push('/item/create')">상품등록
@@ -190,8 +186,18 @@ export default {
         <tbody>
         <tr v-for="item in itemList" :key="item.id">
           <td>{{ item.id }}</td>
-          <td v-if="!isAdmin"><input v-model="selectedItems[item.id]" class="form-check" type="checkbox"></td>
-          <td><img :src="getImage(item.id)" alt="상품이미지" style="height:100px; width:100px"></td>
+          <td v-if="!isAdmin">
+            <input
+                :id="`check${item.id}`"
+                v-model="selectedItems[item.id]"
+                class="form-check"
+                type="checkbox">
+          </td>
+          <td>
+            <label :for="`check${item.id}`">
+              <img :src="getImage(item.id)" alt="상품이미지" style="height:100px; width:100px">
+            </label>
+          </td>
           <td>{{ item.name }}</td>
           <td>{{ item.category }}</td>
           <td>{{ item.price }}</td>
