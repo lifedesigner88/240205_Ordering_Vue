@@ -24,34 +24,28 @@ export default {
           }
       );
 
-      if (this.getTotalQuantity < 1) {
-        alert("물건이 없습니다.")
-        return;
-      }
-
       if (!confirm(`${this.getTotalQuantity}개의 상품을 주문하시겠습니까?`)) {
         alert("추문이 취소되었습니다.")
         return;
       }
-        try {
-          await axios.post(
-              `${process.env.VUE_APP_API_BASE_URL}/order/create`,
-              orderItems,
-              {headers}
-          );
-          alert("주문이 완료되었습니다");
-          window.location.reload();
-          this.cartClear();
-        } catch (e) {
-          console.log(e);
-          alert("주문이 실패되었습니다.");
-        }
 
+      try {
+        await axios.post(
+            `${process.env.VUE_APP_API_BASE_URL}/order/create`,
+            orderItems,
+            {headers}
+        );
+        alert("주문이 완료되었습니다");
+        window.location.reload();
+        this.cartClear();
+      } catch (e) {
+        console.log(e);
+        alert("주문이 실패되었습니다.");
+      }
     },
 
     cartClear() {
-      // this.$store.commit('clearCart');
-      this.$store.dispatch('clearCart');
+      this.$store.commit('clearCart');
     }
   }
 }
@@ -82,7 +76,6 @@ export default {
       </tr>
       </tbody>
     </table>
-
   </div>
 </template>
 <style scoped>
